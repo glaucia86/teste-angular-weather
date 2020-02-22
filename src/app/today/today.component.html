@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="col-sm-12 text-center">
+
+      <div class="input-group mt-5">
+        <input class="form-control" type="text" #userInput placeholder="Digite o nome da Cidade">
+        <div class="input-group-append">
+          <button class="input-group-text btn btn-outline-primary" (click)="getCity(userInput.value)">Buscar</button>
+        </div>
+      </div>
+
+      <h5>Previsão do tempo atualizado da sua Cidade</h5>
+      <h2>Temperatura em: {{ weather.name }}, {{ weather.sys.country }}</h2>
+    </div>
+    <div class="col-sm-12 text-center">
+      <span class="temp"><img src="assets/01d.png" alt="01d.png">
+        {{ weather.main.temp | number: '1.0-0' }} &#176;C</span>
+      <p class="text-uppercase font-italic font-weight-bold">{{ weather.weather[0].description }}</p>
+    </div>
+
+    <table class="table table-light table-striped table-bordered table-sm">
+      <tbody>
+        <tr>
+          <td>Humidity</td>
+          <td>{{ weather.main.humidity }}%</td>
+        </tr>
+        <tr>
+          <td>Pressure</td>
+          <td>{{ weather.main.pressure }}hpa</td>
+        </tr>
+        <tr>
+          <td>Sunrise</td>
+          <td>{{ weather.sys.sunrise * 1000 | date: 'H:mm' }}</td>
+        </tr>
+        <tr>
+          <td>Sunset</td>
+          <td>{{ weather.sys.sunset * 1000 | date: 'H:mm' }}</td>
+        </tr>
+        <tr>
+          <td>Geo Coords</td>
+          <td>[{{ weather.coord.lat }}, {{ weather.coord.lon }}]</td>
+        </tr>
+      </tbody>
+    </table>
+    <agm-map [latitude]="lat" [longitude]="lon" (mapClick)="getCoords($event)">
+      <agm-marker [latitude]="lat" [longitude]="lon"></agm-marker>
+    </agm-map>
+  </div>
+</div>
